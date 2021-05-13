@@ -1,12 +1,12 @@
--- Задание №1
--- Предложения:
--- объединить таблицы users и prifile (в Дз не реализовывал)
--- создать вторичный ключ для photo_id (profile) к id (media)
--- создать таблицу постов
+-- Р—Р°РґР°РЅРёРµ в„–1
+-- РџСЂРµРґР»РѕР¶РµРЅРёСЏ:
+-- РѕР±СЉРµРґРёРЅРёС‚СЊ С‚Р°Р±Р»РёС†С‹ users Рё prifile (РІ Р”Р· РЅРµ СЂРµР°Р»РёР·РѕРІС‹РІР°Р»)
+-- СЃРѕР·РґР°С‚СЊ РІС‚РѕСЂРёС‡РЅС‹Р№ РєР»СЋС‡ РґР»СЏ photo_id (profile) Рє id (media)
+-- СЃРѕР·РґР°С‚СЊ С‚Р°Р±Р»РёС†Сѓ РїРѕСЃС‚РѕРІ
 
--- Задание №2
--- создал таблицы:  post, like
--- создал внешний ключ для photo_id (profile) к id (media)
+-- Р—Р°РґР°РЅРёРµ в„–2
+-- СЃРѕР·РґР°Р» С‚Р°Р±Р»РёС†С‹:  post, like
+-- СЃРѕР·РґР°Р» РІРЅРµС€РЅРёР№ РєР»СЋС‡ РґР»СЏ photo_id (profile) Рє id (media)
 
 
 DROP DATABASE IF EXISTS vk;
@@ -14,90 +14,90 @@ CREATE DATABASE vk;
 USE vk;
 CREATE TABLE users (
 	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, 
-	first_name VARCHAR(100) NOT NULL COMMENT "Имя пользователя",
-	last_name VARCHAR(100) NOT NULL COMMENT "Фамилия пользователя",
+	first_name VARCHAR(100) NOT NULL COMMENT "РРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ",
+	last_name VARCHAR(100) NOT NULL COMMENT "Р¤Р°РјРёР»РёСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ",
 	email VARCHAR(100) NOT NULL UNIQUE,
 	phone VARCHAR(100) NOT NULL UNIQUE,
-	created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT "Время создания строки",
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT "Время обновления строки"
+	created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT "Р’СЂРµРјСЏ СЃРѕР·РґР°РЅРёСЏ СЃС‚СЂРѕРєРё",
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT "Р’СЂРµРјСЏ РѕР±РЅРѕРІР»РµРЅРёСЏ СЃС‚СЂРѕРєРё"
 );
 
 CREATE TABLE post (
 	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	user_id INT UNSIGNED NOT NULL COMMENT "Ссылка на автора поста",
-	body TEXT NOT NULL COMMENT "Текст сообщения",
-	created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT "Время создания строки",
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT "Время обновления строки",
+	user_id INT UNSIGNED NOT NULL COMMENT "РЎСЃС‹Р»РєР° РЅР° Р°РІС‚РѕСЂР° РїРѕСЃС‚Р°",
+	body TEXT NOT NULL COMMENT "РўРµРєСЃС‚ СЃРѕРѕР±С‰РµРЅРёСЏ",
+	created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT "Р’СЂРµРјСЏ СЃРѕР·РґР°РЅРёСЏ СЃС‚СЂРѕРєРё",
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT "Р’СЂРµРјСЏ РѕР±РЅРѕРІР»РµРЅРёСЏ СЃС‚СЂРѕРєРё",
     FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 CREATE TABLE messages (
 	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	from_user_id INT UNSIGNED NOT NULL COMMENT "Ссылка на отправителя сообщения",
-	to_user_id INT UNSIGNED NOT NULL COMMENT "Ссылка на получателя сообщения ",
-	body TEXT NOT NULL COMMENT "Текст сообщения",
-	is_importent BOOLEAN COMMENT "Признак важности",
-	is_delivered BOOLEAN COMMENT "Признак доставки", 
-	created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT "Время создания строки",
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT "Время обновления строки",
+	from_user_id INT UNSIGNED NOT NULL COMMENT "РЎСЃС‹Р»РєР° РЅР° РѕС‚РїСЂР°РІРёС‚РµР»СЏ СЃРѕРѕР±С‰РµРЅРёСЏ",
+	to_user_id INT UNSIGNED NOT NULL COMMENT "РЎСЃС‹Р»РєР° РЅР° РїРѕР»СѓС‡Р°С‚РµР»СЏ СЃРѕРѕР±С‰РµРЅРёСЏ ",
+	body TEXT NOT NULL COMMENT "РўРµРєСЃС‚ СЃРѕРѕР±С‰РµРЅРёСЏ",
+	is_importent BOOLEAN COMMENT "РџСЂРёР·РЅР°Рє РІР°Р¶РЅРѕСЃС‚Рё",
+	is_delivered BOOLEAN COMMENT "РџСЂРёР·РЅР°Рє РґРѕСЃС‚Р°РІРєРё", 
+	created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT "Р’СЂРµРјСЏ СЃРѕР·РґР°РЅРёСЏ СЃС‚СЂРѕРєРё",
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT "Р’СЂРµРјСЏ РѕР±РЅРѕРІР»РµРЅРёСЏ СЃС‚СЂРѕРєРё",
     FOREIGN KEY (from_user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (to_user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE friendship_status (
-	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT "Идентификатор строки",
-	name VARCHAR(150) NOT NULL UNIQUE COMMENT "Название статуса",
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT "Время создания строки",
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT "Время обновления строки"	
-) COMMENT "Статус дружбы";
+	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT "РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ СЃС‚СЂРѕРєРё",
+	name VARCHAR(150) NOT NULL UNIQUE COMMENT "РќР°Р·РІР°РЅРёРµ СЃС‚Р°С‚СѓСЃР°",
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT "Р’СЂРµРјСЏ СЃРѕР·РґР°РЅРёСЏ СЃС‚СЂРѕРєРё",
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT "Р’СЂРµРјСЏ РѕР±РЅРѕРІР»РµРЅРёСЏ СЃС‚СЂРѕРєРё"	
+) COMMENT "РЎС‚Р°С‚СѓСЃ РґСЂСѓР¶Р±С‹";
 
 CREATE TABLE friendship (
-	user_id INT UNSIGNED NOT NULL COMMENT "Сcылка на инициатора дружеских отношений",
-	friend_id INT UNSIGNED NOT NULL COMMENT "Сcылка на получателя приглашения дружить",
-	status_id INT UNSIGNED NOT NULL COMMENT "Сcылка на на статус отношений",
-	requested_at DATETIME DEFAULT NOW() COMMENT "Время отправления приглашения дружить",
-    confirmed_at DATETIME COMMENT "Время подтверждения приглашения",
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT "Время создания строки",
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT "Время обновления строки",
-    PRIMARY KEY (user_id,friend_id) COMMENT "Составной первичный ключ",
+	user_id INT UNSIGNED NOT NULL COMMENT "РЎcС‹Р»РєР° РЅР° РёРЅРёС†РёР°С‚РѕСЂР° РґСЂСѓР¶РµСЃРєРёС… РѕС‚РЅРѕС€РµРЅРёР№",
+	friend_id INT UNSIGNED NOT NULL COMMENT "РЎcС‹Р»РєР° РЅР° РїРѕР»СѓС‡Р°С‚РµР»СЏ РїСЂРёРіР»Р°С€РµРЅРёСЏ РґСЂСѓР¶РёС‚СЊ",
+	status_id INT UNSIGNED NOT NULL COMMENT "РЎcС‹Р»РєР° РЅР° РЅР° СЃС‚Р°С‚СѓСЃ РѕС‚РЅРѕС€РµРЅРёР№",
+	requested_at DATETIME DEFAULT NOW() COMMENT "Р’СЂРµРјСЏ РѕС‚РїСЂР°РІР»РµРЅРёСЏ РїСЂРёРіР»Р°С€РµРЅРёСЏ РґСЂСѓР¶РёС‚СЊ",
+    confirmed_at DATETIME COMMENT "Р’СЂРµРјСЏ РїРѕРґС‚РІРµСЂР¶РґРµРЅРёСЏ РїСЂРёРіР»Р°С€РµРЅРёСЏ",
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT "Р’СЂРµРјСЏ СЃРѕР·РґР°РЅРёСЏ СЃС‚СЂРѕРєРё",
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT "Р’СЂРµРјСЏ РѕР±РЅРѕРІР»РµРЅРёСЏ СЃС‚СЂРѕРєРё",
+    PRIMARY KEY (user_id,friend_id) COMMENT "РЎРѕСЃС‚Р°РІРЅРѕР№ РїРµСЂРІРёС‡РЅС‹Р№ РєР»СЋС‡",
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (friend_id) REFERENCES users(id),
 	FOREIGN KEY (status_id) REFERENCES friendship_status(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE communities(
-	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT "Идентификатор строки",	
-	name VARCHAR(150) NOT NULL UNIQUE COMMENT "Название группы",
-	created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT "Время создания строки",
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT "Время обновления строки"
-) COMMENT "Группы";
+	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT "РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ СЃС‚СЂРѕРєРё",	
+	name VARCHAR(150) NOT NULL UNIQUE COMMENT "РќР°Р·РІР°РЅРёРµ РіСЂСѓРїРїС‹",
+	created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT "Р’СЂРµРјСЏ СЃРѕР·РґР°РЅРёСЏ СЃС‚СЂРѕРєРё",
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT "Р’СЂРµРјСЏ РѕР±РЅРѕРІР»РµРЅРёСЏ СЃС‚СЂРѕРєРё"
+) COMMENT "Р“СЂСѓРїРїС‹";
 
 CREATE TABLE communities_users(
-	community_id INT UNSIGNED NOT NULL COMMENT "Сcылка на группу",
-	user_id INT UNSIGNED NOT NULL COMMENT "Сcылка на пользователя",
-	created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT "Время создания строки",
-	PRIMARY KEY (community_id,user_id) COMMENT "Составной первичный ключ",
+	community_id INT UNSIGNED NOT NULL COMMENT "РЎcС‹Р»РєР° РЅР° РіСЂСѓРїРїСѓ",
+	user_id INT UNSIGNED NOT NULL COMMENT "РЎcС‹Р»РєР° РЅР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ",
+	created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT "Р’СЂРµРјСЏ СЃРѕР·РґР°РЅРёСЏ СЃС‚СЂРѕРєРё",
+	PRIMARY KEY (community_id,user_id) COMMENT "РЎРѕСЃС‚Р°РІРЅРѕР№ РїРµСЂРІРёС‡РЅС‹Р№ РєР»СЋС‡",
 	FOREIGN KEY (community_id) REFERENCES communities(id),
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 CREATE TABLE media_types(
-	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT "Идентификатор строки",
-	name VARCHAR(150) NOT NULL UNIQUE COMMENT "Название типа",
-	created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT "Время создания строки",
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT "Время обновления строки"
-) COMMENT "Типы медиафайлов";
+	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT "РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ СЃС‚СЂРѕРєРё",
+	name VARCHAR(150) NOT NULL UNIQUE COMMENT "РќР°Р·РІР°РЅРёРµ С‚РёРїР°",
+	created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT "Р’СЂРµРјСЏ СЃРѕР·РґР°РЅРёСЏ СЃС‚СЂРѕРєРё",
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT "Р’СЂРµРјСЏ РѕР±РЅРѕРІР»РµРЅРёСЏ СЃС‚СЂРѕРєРё"
+) COMMENT "РўРёРїС‹ РјРµРґРёР°С„Р°Р№Р»РѕРІ";
 
 CREATE TABLE media (
-	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT "Идентификатор строки",	
-	user_id INT UNSIGNED NOT NULL COMMENT "Сcылка на пользователя, который загрузил файл",
-	file_name VARCHAR(255) NOT NULL COMMENT "Путь к файлу",
-	metadata JSON COMMENT "Мета данные файла",
-	media_type_id INT UNSIGNED NOT NULL COMMENT "Сcылка на тип контента",
-	created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT "Время создания строки",
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT "Время обновления строки",
+	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT "РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ СЃС‚СЂРѕРєРё",	
+	user_id INT UNSIGNED NOT NULL COMMENT "РЎcС‹Р»РєР° РЅР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ, РєРѕС‚РѕСЂС‹Р№ Р·Р°РіСЂСѓР·РёР» С„Р°Р№Р»",
+	file_name VARCHAR(255) NOT NULL COMMENT "РџСѓС‚СЊ Рє С„Р°Р№Р»Сѓ",
+	metadata JSON COMMENT "РњРµС‚Р° РґР°РЅРЅС‹Рµ С„Р°Р№Р»Р°",
+	media_type_id INT UNSIGNED NOT NULL COMMENT "РЎcС‹Р»РєР° РЅР° С‚РёРї РєРѕРЅС‚РµРЅС‚Р°",
+	created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT "Р’СЂРµРјСЏ СЃРѕР·РґР°РЅРёСЏ СЃС‚СЂРѕРєРё",
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT "Р’СЂРµРјСЏ РѕР±РЅРѕРІР»РµРЅРёСЏ СЃС‚СЂРѕРєРё",
 	FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (media_type_id) REFERENCES media_types(id)  
-) COMMENT "Медиафайлы";
+) COMMENT "РњРµРґРёР°С„Р°Р№Р»С‹";
 
 CREATE TABLE profile (
 	user_id INT UNSIGNED NOT NULL PRIMARY KEY,
@@ -107,28 +107,28 @@ CREATE TABLE profile (
 	status VARCHAR(30),
 	city VARCHAR(130),
 	country VARCHAR(130),
-	created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT "Время создания строки",
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT "Время обновления строки",
+	created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT "Р’СЂРµРјСЏ СЃРѕР·РґР°РЅРёСЏ СЃС‚СЂРѕРєРё",
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT "Р’СЂРµРјСЏ РѕР±РЅРѕРІР»РµРЅРёСЏ СЃС‚СЂРѕРєРё",
   	FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
   	FOREIGN KEY (photo_id) REFERENCES media(id) ON UPDATE CASCADE
-) COMMENT "Профили";
+) COMMENT "РџСЂРѕС„РёР»Рё";
 
 CREATE TABLE type_like (
 	id INT UNSIGNED NOT NULL PRIMARY KEY,
-	name VARCHAR(130) NOT NULL COMMENT "пост, пользователь, медиафайлы",
-	created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT "Время создания строки",
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT "Время обновления строки"
-) COMMENT "Типы лайков";
+	name VARCHAR(130) NOT NULL COMMENT "РїРѕСЃС‚, РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ, РјРµРґРёР°С„Р°Р№Р»С‹",
+	created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT "Р’СЂРµРјСЏ СЃРѕР·РґР°РЅРёСЏ СЃС‚СЂРѕРєРё",
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT "Р’СЂРµРјСЏ РѕР±РЅРѕРІР»РµРЅРёСЏ СЃС‚СЂРѕРєРё"
+) COMMENT "РўРёРїС‹ Р»Р°Р№РєРѕРІ";
 
 CREATE TABLE `like` (
 	id_type_like INT UNSIGNED NOT NULL,
-	id_object INT UNSIGNED NOT NULL COMMENT "ID объекта заданного типа лайк, например, id post, id user, id photo",
-	quantity INT COMMENT "Количество лайков",
-	created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT "Время создания строки",
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT "Время обновления строки",
-    PRIMARY KEY (id_type_like,id_object) COMMENT "Составной первичный ключ",
+	id_object INT UNSIGNED NOT NULL COMMENT "ID РѕР±СЉРµРєС‚Р° Р·Р°РґР°РЅРЅРѕРіРѕ С‚РёРїР° Р»Р°Р№Рє, РЅР°РїСЂРёРјРµСЂ, id post, id user, id photo",
+	quantity INT COMMENT "РљРѕР»РёС‡РµСЃС‚РІРѕ Р»Р°Р№РєРѕРІ",
+	created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT "Р’СЂРµРјСЏ СЃРѕР·РґР°РЅРёСЏ СЃС‚СЂРѕРєРё",
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT "Р’СЂРµРјСЏ РѕР±РЅРѕРІР»РµРЅРёСЏ СЃС‚СЂРѕРєРё",
+    PRIMARY KEY (id_type_like,id_object) COMMENT "РЎРѕСЃС‚Р°РІРЅРѕР№ РїРµСЂРІРёС‡РЅС‹Р№ РєР»СЋС‡",
     FOREIGN KEY (id_type_like) REFERENCES type_like(id) ON UPDATE CASCADE
-) COMMENT "Лайки";
+) COMMENT "Р›Р°Р№РєРё";
 
 
 
